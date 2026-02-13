@@ -1,122 +1,70 @@
 Índice Remissivo utilizando Árvore AVL
+1. Introdução
+Este trabalho apresenta a implementação de um índice remissivo automatizado a partir de arquivos de texto, utilizando a Árvore AVL como estrutura de dados fundamental. O objetivo principal é processar um documento textual, extrair palavras relevantes e associá-las às linhas onde ocorrem, garantindo eficiência na busca e organização dos dados.Para assegurar a qualidade do índice, o sistema realiza uma normalização prévia do texto utilizando Expressões Regulares (Regex). Todas as palavras são convertidas para letras minúsculas e a pontuação é removida, garantindo que termos como "Árvore" e "árvore," sejam tratados como a mesma entrada.A escolha da Árvore AVL justifica-se pela necessidade de manter o índice sempre balanceado. Diferente de uma árvore binária comum, a AVL garante que a altura das subárvores de qualquer nó não difira em mais de uma unidade, o que assegura uma complexidade de busca, inserção e remoção de O(log n), evitando a degradação de desempenho mesmo em textos extensos.
 
-Introdução
+2. Estruturas de Dados
+O projeto foi estruturado em torno de duas classes principais que abstraem a complexidade do índice:
 
-Este trabalho tem como objetivo a implementação de um índice remissivo a partir de um arquivo de texto, utilizando como estrutura de dados principal a Árvore AVL. O problema consiste em armazenar palavras extraídas de um texto e associá-las às linhas em que aparecem, permitindo uma organização eficiente e balanceada dos dados.
+Classe No
+Representa a unidade básica da árvore. Cada nó armazena:
 
-Para resolver o problema, foi feita a leitura de um arquivo `.txt`, no qual cada linha é processada individualmente. As palavras são normalizadas (convertidas para letras minúsculas e sem pontuação) e inseridas na árvore AVL. Cada nó da árvore representa uma palavra distinta, armazenando também um conjunto de números de linhas onde essa palavra ocorre.
+Palavra: A chave de busca (string).
 
-A escolha da Árvore AVL se justifica pela necessidade de manter a árvore sempre balanceada, garantindo eficiência nas operações de inserção e busca, mesmo para arquivos de texto extensos. Dessa forma, o índice remissivo é construído de maneira organizada, evitando degradação de desempenho.
+Linhas: Um conjunto (set) contendo os números das linhas onde a palavra aparece. O uso de set impede automaticamente a duplicidade de números de linha para a mesma palavra.
 
+Altura: Inteiro utilizado para calcular o fator de balanceamento.
 
-Estruturas de Dados Utilizadas
+Ponteiros: Referências para os filhos à esquerda e à direita.
 
-- Árvore AVL: estrutura principal para armazenar as palavras do texto de forma ordenada e balanceada.
-- Conjunto (set): utilizado para armazenar as linhas em que cada palavra aparece, evitando duplicidades.
-- Recursão: aplicada no processo de inserção e balanceamento da árvore.
+Classe AVL
+Gerencia as operações da árvore e mantém estatísticas globais, como o total de palavras processadas, palavras distintas, palavras descartadas (repetições na mesma linha) e o número total de rotações executadas durante o balanceamento.
 
-Durante a execução, o programa também contabiliza:
+3. Implementação e Algoritmos
+A lógica do sistema vai além da simples inserção, englobando operações avançadas de manutenção e análise da árvore.
 
-o total de palavras distintas inseridas na árvore;
+Inserção e Balanceamento
+A inserção ocorre de forma recursiva. A cada novo nó adicionado, o algoritmo verifica a altura dos ancestrais e calcula o Fator de Balanceamento (FB). Caso o FB saia do intervalo permitido (-1, 0, 1), são aplicadas operações de Rotação (Simples à Direita ou à Esquerda) para restaurar o equilíbrio da árvore.
 
-o número de ocorrências descartadas (quando a palavra já estava registrada na mesma linha);
+Busca Avançada e Medidor de Equilíbrio (ME)
+Além da busca tradicional, foi implementada a função buscar_com_me. Esta funcionalidade não apenas localiza uma palavra, mas também calcula seu Medidor de Equilíbrio (ME), definido pela diferença entre a contagem total de nós da subárvore esquerda e da subárvore direita. Isso permite uma análise mais profunda da distribuição de peso da árvore em torno de um termo específico.
 
-o total de rotações realizadas para manter o balanceamento.
+Remoção Granular
+O sistema possui um mecanismo de remoção (remover) que opera em dois níveis:
 
-Além da inserção, o sistema permite:
+Remoção de Referência: Se uma palavra aparece em múltiplas linhas e o usuário solicita a remoção de apenas uma linha específica, o sistema remove apenas esse número do conjunto, mantendo o nó na árvore.
 
-buscar uma palavra específica e visualizar as linhas em que ela aparece;
+Remoção de Nó: Se a palavra possui apenas uma ocorrência (ou a lista de linhas fica vazia), o nó é removido fisicamente da árvore. O algoritmo trata casos complexos (como nós com dois filhos) e realiza o rebalanceamento ascendente (backtracking) para garantir que a propriedade AVL seja mantida após a exclusão.
 
-buscar palavras a partir de um prefixo;
+Busca por Prefixo e Frequência
+Para auxiliar na análise textual, o sistema inclui:
 
-imprimir todo o índice em ordem alfabética, exibindo cada palavra acompanhada de suas respectivas linhas.
+Busca por Prefixo (buscar_prefixo): Utiliza a ordenação da árvore para encontrar eficientemente todas as palavras que começam com uma determinada sequência de caracteres (ex: "alg" retorna "algoritmo", "álgebra").
 
-Para executar o projeto, é necessário ter Python instalado. Basta fornecer o arquivo de texto que será processado. O código foi desenvolvido para leitura em ambiente Colab, mas pode ser adaptado facilmente para execução local.
+Palavra Mais Frequente (palavra_mais_frequente): Percorre a árvore comparando a cardinalidade dos conjuntos de linhas para identificar o termo com maior ocorrência no texto.
 
-O objetivo principal do trabalho é demonstrar a aplicação prática de árvores AVL na organização eficiente de dados textuais, evidenciando o funcionamento das rotações e do balanceamento automático da estrutura.
+4. Resultados e Saída de Dados
+O sistema gera como produto final um arquivo de texto (.txt) contendo o índice remissivo completo, ordenado alfabeticamente.
 
-Documentação do Código
+Ao final do processamento, o arquivo apresenta um relatório estatístico detalhado contendo:
 
-Classe `No`
+Total de palavras brutas processadas no texto.
 
-A classe `No` representa cada nó da árvore AVL. Ela contém:
-- `palavra`: a palavra armazenada no nó.
-- `linhas`: conjunto de números das linhas em que a palavra aparece.
-- `esquerda` e `direita`: referências para os filhos do nó.
-- `altura`: altura do nó, utilizada no cálculo do balanceamento da árvore.
+Total de palavras distintas armazenadas na árvore.
 
-Cada nó é criado quando uma nova palavra é encontrada no texto.
+Total de ocorrências descartadas (palavras repetidas na mesma linha).
 
-Classe `AVL`
+Tempo total de construção da estrutura (em segundos).
 
-A classe `AVL` é responsável por gerenciar toda a árvore e implementar suas operações.
+Total de rotações efetuadas, demonstrando o esforço computacional para manter o balanceamento.
 
-Construtor `__init__`
-Inicializa a árvore com:
-- raiz vazia
-- contador de rotações
-- contador de palavras inseridas
-- contador de palavras descartadas (repetidas na mesma linha)
-
-Método `altura(no)`
-Retorna a altura de um nó. Caso o nó seja nulo, retorna zero.
-
-Método `fator_balanceamento(no)`
-Calcula a diferença entre a altura da subárvore esquerda e direita, permitindo identificar se o nó está balanceado.
-
-Método `rotacao_direita(y)`
-Executa uma rotação simples à direita para corrigir desbalanceamentos do tipo esquerda-esquerda.
-
-Método `rotacao_esquerda(x)`
-Executa uma rotação simples à esquerda para corrigir desbalanceamentos do tipo direita-direita.
-
-Método `inserir(no, palavra, linha)`
-Responsável por inserir uma palavra na árvore:
-- Se o nó for nulo, cria um novo nó.
-- Se a palavra já existir, adiciona o número da linha ao conjunto.
-- Caso contrário, insere recursivamente à esquerda ou à direita.
-- Após a inserção, atualiza a altura do nó e aplica rotações quando necessário.
-
-Esse método garante que a árvore permaneça balanceada após cada inserção.
+Exemplo de Saída Gerada:
 
 
-Exemplos de Uso
+inteligência: {2, 5, 10}
+sabedoria: {1, 8}
 
-Exemplo de entrada (arquivo texto)
-
-A sabedoria clama nas ruas
-
-A inteligência levanta a sua voz
-
-
-Código para processar o texto
-
-avl = AVL()
-
-avl.raiz = avl.inserir(avl.raiz, "sabedoria", 1)
-
-avl.raiz = avl.inserir(avl.raiz, "inteligência", 2)
-
-Nesse exemplo:
-
-A palavra "sabedoria" foi encontrada na linha 1;
-
-A palavra "inteligência" foi encontrada na linha 2.
-
-saída esperada
-
-Exemplo:
-
-Palavra: sabedoria → Linhas: {1}
-
-Palavra: inteligência → Linhas: {2}
-
-Total de rotações: 0
-
-Esses resultados demonstram a correta associação das palavras às linhas correspondentes, bem como o funcionamento do balanceamento automático da árvore.
-
-Conclusão:
-
-O código foi testado exaustivamente para garantir o correto funcionamento das operações de inserção e balanceamento da árvore AVL. Foram adotadas boas práticas de programação, como modularização, uso de nomes de variáveis claros e comentários explicativos ao longo do código.
-
-A utilização da Árvore AVL mostrou-se eficiente para a construção do índice remissivo, garantindo organização, desempenho e escalabilidade, mesmo para grandes volumes de dados.
+Total de palavras distintas: 2
+Tempo de construção: 0.0015 segundos
+Total de rotações executadas: 1
+5. Conclusão
+O desenvolvimento deste trabalho permitiu demonstrar a eficácia da Árvore AVL no processamento de dados textuais. A estrutura mostrou-se robusta, mantendo o desempenho estável tanto na inserção quanto na busca e remoção, graças ao seu mecanismo de autobalanceamento.A implementação de funcionalidades extras, como o cálculo do Medidor de Equilíbrio e a busca por prefixo, evidenciou a flexibilidade da estrutura para aplicações além da simples indexação. O código resultante é eficiente e capaz de lidar com arquivos de texto de forma escalável.
