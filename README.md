@@ -83,24 +83,39 @@ Esse método garante que a árvore permaneça balanceada após cada inserção.
 Exemplos de Uso
 
 Exemplo de entrada (arquivo texto)
+
 A sabedoria clama nas ruas
+
 A inteligência levanta a sua voz
 
 
 Código para processar o texto
 
 avl = AVL()
+
 avl.raiz = avl.inserir(avl.raiz, "sabedoria", 1)
+
 avl.raiz = avl.inserir(avl.raiz, "inteligência", 2)
 
+Nesse exemplo:
+
+A palavra "sabedoria" foi encontrada na linha 1;
+
+A palavra "inteligência" foi encontrada na linha 2.
+
 saída esperada
-Exemplo de entPalavra: sabedoria → Linhas: {1}
+
+Exemplo:
+
+Palavra: sabedoria → Linhas: {1}
+
 Palavra: inteligência → Linhas: {2}
+
 Total de rotações: 0
-rada (arquivo texto)
+
 Esses resultados demonstram a correta associação das palavras às linhas correspondentes, bem como o funcionamento do balanceamento automático da árvore.
 
-Conclusão
+Conclusão:
 
 O código foi testado exaustivamente para garantir o correto funcionamento das operações de inserção e balanceamento da árvore AVL. Foram adotadas boas práticas de programação, como modularização, uso de nomes de variáveis claros e comentários explicativos ao longo do código.
 
