@@ -43,7 +43,7 @@ Busca por Prefixo (buscar_prefixo): Utiliza a ordenação da árvore para encont
 Palavra Mais Frequente (palavra_mais_frequente): Percorre a árvore comparando a cardinalidade dos conjuntos de linhas para identificar o termo com maior ocorrência no texto.
 
 4. Resultados e Saída de Dados
-O sistema gera como produto final um arquivo de texto (.txt) contendo o índice remissivo completo, ordenado alfabeticamente.
+O sistema gera como produto final um índice remissivo completo, ordenado alfabeticamente.
 
 Ao final do processamento, o arquivo apresenta um relatório estatístico detalhado contendo:
 
