@@ -15,9 +15,37 @@ Estruturas de Dados Utilizadas
 - Conjunto (set): utilizado para armazenar as linhas em que cada palavra aparece, evitando duplicidades.
 - Recursão: aplicada no processo de inserção e balanceamento da árvore.
 
-## Documentação do Código
+Índice Remissivo com Árvore AVL
 
-### Classe `No`
+Este projeto implementa um índice remissivo utilizando uma Árvore AVL como estrutura de dados principal. A proposta é ler um arquivo de texto, organizar as palavras em ordem alfabética e registrar em quais linhas cada palavra aparece, mantendo a árvore sempre balanceada.
+
+O programa foi desenvolvido em Python e trabalha com um arquivo .txt contendo o texto a ser indexado. Cada palavra é inserida na árvore juntamente com o número da linha em que foi encontrada. Caso a palavra já exista, apenas a linha é adicionada ao conjunto correspondente, evitando duplicações.
+
+A estrutura utilizada é uma Árvore AVL, que é uma árvore binária de busca autobalanceada. Isso garante que as operações de inserção e busca ocorram de forma eficiente, mesmo com grande quantidade de palavras. Sempre que necessário, o algoritmo realiza rotações para manter o balanceamento da árvore.
+
+Durante a execução, o programa também contabiliza:
+
+o total de palavras distintas inseridas na árvore;
+
+o número de ocorrências descartadas (quando a palavra já estava registrada na mesma linha);
+
+o total de rotações realizadas para manter o balanceamento.
+
+Além da inserção, o sistema permite:
+
+buscar uma palavra específica e visualizar as linhas em que ela aparece;
+
+buscar palavras a partir de um prefixo;
+
+imprimir todo o índice em ordem alfabética, exibindo cada palavra acompanhada de suas respectivas linhas.
+
+Para executar o projeto, é necessário ter Python instalado. Basta fornecer o arquivo de texto que será processado. O código foi desenvolvido para leitura em ambiente Colab, mas pode ser adaptado facilmente para execução local.
+
+O objetivo principal do trabalho é demonstrar a aplicação prática de árvores AVL na organização eficiente de dados textuais, evidenciando o funcionamento das rotações e do balanceamento automático da estrutura.
+
+Documentação do Código
+
+Classe `No`
 
 A classe `No` representa cada nó da árvore AVL. Ela contém:
 - `palavra`: a palavra armazenada no nó.
@@ -82,6 +110,6 @@ Esses resultados demonstram a correta associação das palavras às linhas corre
 
 Observações Finais
 
-O código foi testado com diferentes arquivos de texto para garantir o correto funcionamento das operações de inserção e balanceamento da árvore AVL. Foram adotadas boas práticas de programação, como modularização, uso de nomes de variáveis claros e comentários explicativos ao longo do código.
+O código foi testado exaustivamente para garantir o correto funcionamento das operações de inserção e balanceamento da árvore AVL. Foram adotadas boas práticas de programação, como modularização, uso de nomes de variáveis claros e comentários explicativos ao longo do código.
 
 A utilização da Árvore AVL mostrou-se eficiente para a construção do índice remissivo, garantindo organização, desempenho e escalabilidade, mesmo para grandes volumes de dados.
