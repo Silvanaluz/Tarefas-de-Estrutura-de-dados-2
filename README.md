@@ -15,14 +15,6 @@ Estruturas de Dados Utilizadas
 - Conjunto (set): utilizado para armazenar as linhas em que cada palavra aparece, evitando duplicidades.
 - Recursão: aplicada no processo de inserção e balanceamento da árvore.
 
-Índice Remissivo com Árvore AVL
-
-Este projeto implementa um índice remissivo utilizando uma Árvore AVL como estrutura de dados principal. A proposta é ler um arquivo de texto, organizar as palavras em ordem alfabética e registrar em quais linhas cada palavra aparece, mantendo a árvore sempre balanceada.
-
-O programa foi desenvolvido em Python e trabalha com um arquivo .txt contendo o texto a ser indexado. Cada palavra é inserida na árvore juntamente com o número da linha em que foi encontrada. Caso a palavra já exista, apenas a linha é adicionada ao conjunto correspondente, evitando duplicações.
-
-A estrutura utilizada é uma Árvore AVL, que é uma árvore binária de busca autobalanceada. Isso garante que as operações de inserção e busca ocorram de forma eficiente, mesmo com grande quantidade de palavras. Sempre que necessário, o algoritmo realiza rotações para manter o balanceamento da árvore.
-
 Durante a execução, o programa também contabiliza:
 
 o total de palavras distintas inseridas na árvore;
@@ -108,7 +100,7 @@ Total de rotações: 0
 rada (arquivo texto)
 Esses resultados demonstram a correta associação das palavras às linhas correspondentes, bem como o funcionamento do balanceamento automático da árvore.
 
-Observações Finais
+Conclusão
 
 O código foi testado exaustivamente para garantir o correto funcionamento das operações de inserção e balanceamento da árvore AVL. Foram adotadas boas práticas de programação, como modularização, uso de nomes de variáveis claros e comentários explicativos ao longo do código.
 
